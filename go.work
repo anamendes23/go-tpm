@@ -1,0 +1,8 @@
+go 1.24
+
+use (
+    .
+    ./tpm2/transport/googleipmi
+)
+
+replace github.com/google/go-tpm v0.9.8 => ./
