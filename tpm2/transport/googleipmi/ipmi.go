@@ -15,7 +15,6 @@ const (
 	maxChunkSize       = maxBlobPayloadSize - blobOverhead
 
 	// The maximum size of a Titan EC command or response over ipmi
-	maxTitanRequestSize  = 1024
 	maxTitanResponseSize = 1024
 	// IPMI blob protocol commit times are not distributed linearly, so use an exponential backoff.
 	// These values are tuned to catch the 90th percentile delay in 3 polls or less.
