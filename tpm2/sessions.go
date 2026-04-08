@@ -353,7 +353,7 @@ func HMACSession(t transport.TPM, hash TPMIAlgHash, nonceSize int, opts ...AuthO
 	}
 	// This session is reusable and is closed with the function we'll
 	// return.
-	sess.sessionOptions.attrs.ContinueSession = true
+	sess.attrs.ContinueSession = true
 
 	// Initialize the session.
 	if err := sess.Init(t); err != nil {
@@ -631,6 +631,7 @@ func (s *hmacSession) Encrypt(parameter []byte) error {
 	if err != nil {
 		return err
 	}
+	//nolint:staticcheck // CFB mode is required for the TPM 2.0 specification.
 	stream := cipher.NewCFBEncrypter(key, keyIV[keyBytes:])
 	stream.XORKeyStream(parameter, parameter)
 	return nil
@@ -662,6 +663,7 @@ func (s *hmacSession) Decrypt(parameter []byte) error {
 	if err != nil {
 		return err
 	}
+	//nolint:staticcheck // CFB mode is required for the TPM 2.0 specification.
 	stream := cipher.NewCFBDecrypter(key, keyIV[keyBytes:])
 	stream.XORKeyStream(parameter, parameter)
 	return nil
@@ -730,7 +732,7 @@ func PolicySession(t transport.TPM, hash TPMIAlgHash, nonceSize int, opts ...Aut
 
 	// This session is reusable and is closed with the function we'll
 	// return.
-	sess.sessionOptions.attrs.ContinueSession = true
+	sess.attrs.ContinueSession = true
 
 	// Initialize the session.
 	if err := sess.Init(t); err != nil {
@@ -762,7 +764,7 @@ func (s *policySession) Init(t transport.TPM) error {
 	}
 
 	sessType := TPMSEPolicy
-	if s.sessionOptions.trialPolicy {
+	if s.trialPolicy {
 		sessType = TPMSETrial
 	}
 
@@ -952,6 +954,7 @@ func (s *policySession) Encrypt(parameter []byte) error {
 	if err != nil {
 		return err
 	}
+	//nolint:staticcheck // CFB mode is required for the TPM 2.0 specification.
 	stream := cipher.NewCFBEncrypter(key, keyIV[keyBytes:])
 	stream.XORKeyStream(parameter, parameter)
 	return nil
@@ -983,6 +986,7 @@ func (s *policySession) Decrypt(parameter []byte) error {
 	if err != nil {
 		return err
 	}
+	//nolint:staticcheck // CFB mode is required for the TPM 2.0 specification.
 	stream := cipher.NewCFBDecrypter(key, keyIV[keyBytes:])
 	stream.XORKeyStream(parameter, parameter)
 	return nil
