@@ -145,7 +145,7 @@ func (d *dispatcher) read(ctx context.Context, sid blobs.SessionID) ([]byte, err
 		return nil, err
 	}
 	if dataLen > maxTitanResponseSize {
-		return nil, fmt.Errorf("Titan reported too-large EC response size of %d", dataLen)
+		return nil, fmt.Errorf("got too-large EC response size of %d from Titan", dataLen)
 	}
 
 	data := make([]byte, 0, dataLen)

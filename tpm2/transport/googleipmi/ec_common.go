@@ -61,17 +61,6 @@ func ecSendCommand(ctx context.Context, cd commandDispatcher, cmd ecCommand, arg
 	return unwrappedRsp, nil
 }
 
-// sendECCommandNoResponse delivers EC command and extra params(if any) to Titan
-// using the given command dispatcher but does not parse the response.
-func sendECCommandNoResponse(ctx context.Context, cd commandDispatcher, cmd ecCommand, args ...interface{}) error {
-	ecCmd, err := formatEcCommand(cmd, args...)
-	if err != nil {
-		return err
-	}
-
-	return cd.dispatchCommandNoResponse(ctx, ecCmd)
-}
-
 // ecCommand represents an EC command.
 type ecCommand struct {
 	Code    uint16
