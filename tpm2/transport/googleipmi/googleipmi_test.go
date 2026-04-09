@@ -9,9 +9,9 @@ import (
 func TestGetTitanIpmiTPM(t *testing.T) {
 	tpm, err := Open()
 	if tpm != nil {
-		t.Fatalf("Expected a nil TPM.")
+		t.Errorf("Expected a nil TPM.")
 	}
 	if err == nil {
-		t.Fatalf("Expected a non-nil error.")
+		t.Errorf("Expected a non-nil error.")
 	}
 }
