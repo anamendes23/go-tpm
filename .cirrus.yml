@@ -21,5 +21,8 @@ lint_task:
       - GOOS: windows
   lint_script:
     golangci-lint run ./tpmutil/... ./tpm2/...
-  lint_googleipmi_script:
-    cd ./tpm2/transport/googleipmi/ && golangci-lint run ./...
+  lint_googleipmi_script: |
+    if [ "$GOOS" = "linux" ]; then
+      cd ./tpm2/transport/googleipmi/
+      golangci-lint run ./...
+    fi
